@@ -10,7 +10,7 @@ public class PrintJobStack extends Object implements StackADT<PrintJob> {
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return size == 0 && top == null;
     }
 
     @Override

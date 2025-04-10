@@ -116,6 +116,14 @@ public class PrintJobQueue extends Object implements QueueADT<PrintJob> {
         if (current1 != null || current2 != null) {
             return false;
         }
+        // checks backs
+        if (back != null && this.back != null) {
+            if (!this.back.getData().equals(back.getData())) {
+                return false;
+            }
+        } else if (back != null || this.back != null) {
+            return false;
+        }
         return true;
     }
 }
