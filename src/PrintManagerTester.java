@@ -1,4 +1,33 @@
-// TODO Add Complete File Header
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    Print Structure Management System Testers
+// Course:   CS 300 Spring 2025
+//
+// Author:   Pranav Krovi
+// Email:    pkrovi@wisc.edu
+// Lecturer: Mouna Kacem
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+// 
+// Partner Name:    x
+// Partner Email:   x
+// Partner Lecturer's Name: x
+// 
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   x Write-up states that pair programming is allowed for this assignment.
+//   x We have both read and understand the course Pair Programming Policy.
+//   x We have registered our team prior to the team registration deadline.
+//
+//////////////////////// ASSISTANCE/HELP CITATIONS ////////////////////////////
+//
+// Persons:         Mouna Kacem
+//                  - slides helped with understanding the stack structure and its implementation
+// Online Sources:  W3 schools, Simplilearn
+//                  - https://www.w3schools.com/dsa/dsa_data_queues.php
+//                  - https://www.w3schools.com/dsa/dsa_data_stacks.php
+//                  - https://www.simplilearn.com/tutorials/java-tutorial/stringbuilder-in-java
+//
+///////////////////////////////////////////////////////////////////////////////
 
 import java.util.NoSuchElementException;
 /**
@@ -6,7 +35,6 @@ import java.util.NoSuchElementException;
  * classes.
  */
 public class PrintManagerTester {
-  // TODO implement each of the tester methods
 
   /**
    * Test the behavior of adding one or more elements to a PrintJobStack.
@@ -18,6 +46,8 @@ public class PrintManagerTester {
    */
   public static boolean testStackPushPeekIsEmptySizeContains() {
     // Test Case 1: Add one element to an empty stack (push and peek and is empty and size)
+    // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_stacks.php
+    // how to push to stacks efficiently
     {
       PrintJobStack stack = new PrintJobStack();
       PrintJob job1 = new PrintJob("Document1",  5);
@@ -62,19 +92,19 @@ public class PrintManagerTester {
       PrintJob job2 = new PrintJob("Document2", 10);
       stack.push(job1);
       stack.push(job2);
-
       // Check if the stack contains job1 and job2
       if (!(stack.contains(job1) && stack.contains(job2))) {
-        return false; // Test passed
+        return false;
       }
     }
     // Test Case 4: Check if the stack does not contain an element not in the stack (contains)
     {
+      // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_stacks.php
+      // how to push to stacks efficiently
       PrintJobStack stack = new PrintJobStack();
       PrintJob job1 = new PrintJob("Document1", 5);
       PrintJob job2 = new PrintJob("Document2", 10);
       stack.push(job1);
-
       // Check if the stack does not contain job2
       if (stack.contains(job2)) {
         return false; // Test passed
@@ -366,6 +396,8 @@ public class PrintManagerTester {
     }
     // Test Case 3: Check if the queue is empty after dequeuing all elements (dequeue)
     {
+      // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_queues.php
+      // how to dequeue a value in a queue
       PrintJobQueue queue = new PrintJobQueue();
       PrintJob job1 = new PrintJob("Document1", 5);
       PrintJob job2 = new PrintJob("Document2", 10);

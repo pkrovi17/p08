@@ -20,8 +20,10 @@
 //
 //////////////////////// ASSISTANCE/HELP CITATIONS ////////////////////////////
 //
-// Persons:         (identify each by name and describe how they helped)
-// Online Sources:  (identify each by URL and describe how it helped)
+// Persons:         Mouna Kacem
+//                  - slides helped with understanding the stack structure and its implementation
+// Online Sources:  W3 schools 
+//                  - https://www.w3schools.com/dsa/dsa_data_stacks.php
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -57,6 +59,8 @@ public class PrintJobStack extends Object implements StackADT<PrintJob> {
      */
     @Override
     public void push(PrintJob value) {
+        // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_stacks.php
+        // how to push to stacks efficiently
         LinkedNode<PrintJob> newNode = new LinkedNode<>(value);
         newNode.setNext(top);
         top = newNode;
@@ -70,6 +74,8 @@ public class PrintJobStack extends Object implements StackADT<PrintJob> {
      */
     @Override
     public PrintJob pop() {
+        // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_stacks.php
+        // how to pop elements from stacks efficiently
         if (isEmpty()) {
             return null;
         }
@@ -86,6 +92,8 @@ public class PrintJobStack extends Object implements StackADT<PrintJob> {
      */
     @Override
     public PrintJob peek() {
+        // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_stacks.php
+        // how to push to peek efficiently
         if (isEmpty()) {
             return null;
         }
@@ -108,6 +116,8 @@ public class PrintJobStack extends Object implements StackADT<PrintJob> {
      */
     @Override
     public boolean contains(PrintJob value) {
+        // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_stacks.php
+        // how to check for contains to stacks efficiently
         LinkedNode<PrintJob> current = top;
         while (current != null) {
             if (current.getData().equals(value)) {

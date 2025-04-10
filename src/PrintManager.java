@@ -20,8 +20,12 @@
 //
 //////////////////////// ASSISTANCE/HELP CITATIONS ////////////////////////////
 //
-// Persons:         (identify each by name and describe how they helped)
-// Online Sources:  (identify each by URL and describe how it helped)
+// Persons:         Mouna Kacem
+//                  - slides helped with understanding the stack structure and its implementation
+// Online Sources:  W3 schools, Simplilearn
+//                  - https://www.w3schools.com/dsa/dsa_data_queues.php
+//                  - https://www.w3schools.com/dsa/dsa_data_stacks.php
+//                  - https://www.simplilearn.com/tutorials/java-tutorial/stringbuilder-in-java
 //
 ///////////////////////////////////////////////////////////////////////////////
 // imports
@@ -148,6 +152,8 @@ public class PrintManager extends Object{
      * @return a string representation of the completed print jobs in the history stack
      */
     public String viewCompletedJobs() {
+        // Cite: Simplilearn - https://www.simplilearn.com/tutorials/java-tutorial/stringbuilder-in-java
+        // how to use string builder
         PrintJob [] jobs = printHistoryStack.getList(); 
         if (jobs == null) {
             return ""; 

@@ -20,8 +20,10 @@
 //
 //////////////////////// ASSISTANCE/HELP CITATIONS ////////////////////////////
 //
-// Persons:         (identify each by name and describe how they helped)
-// Online Sources:  (identify each by URL and describe how it helped)
+// Persons:         Mouna Kacem
+//                  - slides helped with understanding the stack structure and its implementation
+// Online Sources:  W3 schools
+//                  - https://www.w3schools.com/dsa/dsa_data_queues.php
 //
 ///////////////////////////////////////////////////////////////////////////////
 // Imports 
@@ -50,6 +52,8 @@ public class PrintJobQueue extends Object implements QueueADT<PrintJob> {
      */
     @Override
     public void enqueue(PrintJob value) {
+        // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_queues.php
+        // how to enqueue a value in a queue
         LinkedNode<PrintJob> newNode = new LinkedNode<>(value);
         if (isEmpty()) {
             front = newNode;
@@ -70,6 +74,8 @@ public class PrintJobQueue extends Object implements QueueADT<PrintJob> {
      */
     @Override
     public PrintJob dequeue() {
+        // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_queues.php
+        // how to dequeue a value in a queue
         if (isEmpty()) {
             throw new NoSuchElementException("Empty Queue");
         }
@@ -90,6 +96,8 @@ public class PrintJobQueue extends Object implements QueueADT<PrintJob> {
      */
     @Override
     public PrintJob peek() {
+        // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_queues.php
+        // how to peek a value in a queue
         if (isEmpty()) {
             throw new NoSuchElementException("Empty Queue");
         }
@@ -121,6 +129,8 @@ public class PrintJobQueue extends Object implements QueueADT<PrintJob> {
      */
     @Override
     public boolean contains(PrintJob value) {
+        // Cite: W3 schools - https://www.w3schools.com/dsa/dsa_data_queues.php
+        // how to run contains on a value in a queue
         LinkedNode<PrintJob> current = front;
         while (current != null) {
             if (current.getData().equals(value)) {
