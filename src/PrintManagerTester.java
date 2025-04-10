@@ -17,8 +17,70 @@ public class PrintManagerTester {
    * @return true if elements are correctly added to the stack, false otherwise
    */
   public static boolean testStackPushPeekIsEmptySizeContains() {
+    // Test Case 1: Add one element to an empty stack (push and peek and is empty and size)
+    {
+      PrintJobStack stack = new PrintJobStack();
+      PrintJob job1 = new PrintJob("Document1",  5);
+      stack.push(job1);
+      // Check if the stack is not empty
+      if (stack.isEmpty()) {
+        return false;
+      }
+      // Check if the size is 1
+      if (stack.size() != 1) {
+        return false;
+      }
+      // Check if the top element is job1
+      if (!stack.peek().equals(job1)) {
+        return false; 
+      }
+    }
+    // Test Case 2: Add multiple elements to the stack (push and peek)
+    {
+      PrintJobStack stack = new PrintJobStack();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      stack.push(job1);
+      stack.push(job2);
+      // Check if the stack is not empty
+      if (stack.isEmpty()) {
+        return false;
+      }
+      // Check if the size is 2
+      if (stack.size() != 2) {
+        return false;
+      }
+      // Check if the top element is job2
+      if (!stack.peek().equals(job2)) {
+        return false; 
+      }
+    }
+    // Test Case 3: Check if the stack contains a specific element (push and contains)
+    {
+      PrintJobStack stack = new PrintJobStack();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      stack.push(job1);
+      stack.push(job2);
 
-    return false; // default return statement
+      // Check if the stack contains job1 and job2
+      if (!(stack.contains(job1) && stack.contains(job2))) {
+        return false; // Test passed
+      }
+    }
+    // Test Case 4: Check if the stack does not contain an element not in the stack (contains)
+    {
+      PrintJobStack stack = new PrintJobStack();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      stack.push(job1);
+
+      // Check if the stack does not contain job2
+      if (stack.contains(job2)) {
+        return false; // Test passed
+      }
+    }
+    return true;
   }
 
   /**
@@ -27,7 +89,43 @@ public class PrintManagerTester {
    * @return true if elements are correctly removed from the stack, false otherwise
    */
   public static boolean testStackPop() {
-    return false; // default return statement
+        // Test Case 5: Check if the stack is empty after clearing (clear)
+        {
+          PrintJobStack stack = new PrintJobStack();
+          PrintJob job1 = new PrintJob("Document1", 5);
+          stack.push(job1);
+          stack.clear();
+          // Check if the stack is empty
+          if (!stack.isEmpty()) {
+            return false; 
+          }
+        }
+        // Test Case 6: Check if the stack size is 0 after clearing (clear)
+        {
+          PrintJobStack stack = new PrintJobStack();
+          PrintJob job1 = new PrintJob("Document1", 5);
+          stack.push(job1);
+          stack.clear();
+          // Check if the size is 0
+          if (stack.size() != 0) {
+            return false; 
+          }
+        }
+        // Test Case 7: Check if the stack is empty after popping all elements (pop)
+        {
+          PrintJobStack stack = new PrintJobStack();
+          PrintJob job1 = new PrintJob("Document1", 5);
+          PrintJob job2 = new PrintJob("Document2", 10);
+          stack.push(job1);
+          stack.push(job2);
+          stack.pop();
+          stack.pop(); 
+          // Check if the stack is empty
+          if (!stack.isEmpty()) {
+            return false; 
+          }
+        }
+    return true; 
   }
 
   /**
@@ -36,7 +134,30 @@ public class PrintManagerTester {
    * @return true if this tester verifies a correct functionality, false otherwise.
    */
   public static boolean testGetListStack() {
-    return false; // default return statement
+    // Test Case 1: Get the list of elements in an empty stack
+    {
+      PrintJobStack stack = new PrintJobStack();
+      PrintJob[] result = stack.getList();
+      // Check if the result is an empty array
+      if (result.length != 0) {
+        return false;
+      }
+    }
+    // Test Case 2: Get the list of elements in a non-empty stack
+    {
+      PrintJobStack stack = new PrintJobStack();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      stack.push(job1);
+      stack.push(job2);
+      // Get the list of elements
+      PrintJob[] result = stack.getList();
+      // Check if the result contains job1 and job2 in the correct order
+      if (!(result.length == 2 && result[0].equals(job2) && result[1].equals(job1))) {
+        return false;
+      }
+    }
+    return true;
   }
 
 
@@ -46,7 +167,45 @@ public class PrintManagerTester {
    * @return true if elements are correctly added to the queue, false otherwise
    */
   public static boolean testQueueEnqueue() {
-    return false;
+    // Test Case 1: Add one element to an empty queue (enqueue and peek and is empty and size)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      queue.enqueue(job1);
+      // Check if the queue is not empty
+      if (queue.isEmpty()) {
+        return false;
+      }
+      // Check if the size is 1
+      if (queue.size() != 1) {
+        return false;
+      }
+      // Check if the front element is job1
+      if (!queue.peek().equals(job1)) {
+        return false;
+      }
+    }
+    // Test Case 2: Add multiple elements to the queue (enqueue and peek)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      queue.enqueue(job1);
+      queue.enqueue(job2);
+      // Check if the queue is not empty
+      if (queue.isEmpty()) {
+        return false;
+      }
+      // Check if the size is 2
+      if (queue.size() != 2) {
+        return false;
+      }
+      // Check if the front element is job1
+      if (!queue.peek().equals(job1)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -56,7 +215,59 @@ public class PrintManagerTester {
    * @return true if this tester verifies a correct functionality, false otherwise
    */
   public static boolean testQueueIsEmptyPeekSizeContains() {
-    return false;
+    // Test Case 1: Check if the queue is empty (isEmpty)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      if (!queue.isEmpty()) {
+        return false;
+      }
+    }
+    // Test Case 2: Check if the queue is not empty (isEmpty)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      queue.enqueue(job1);
+      // Check if the queue is not empty
+      if (queue.isEmpty()) {
+        return false;
+      }
+    }
+    // Test Case 3: Check the size of the queue (size)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      queue.enqueue(job1);
+
+      // Check if the size is 1
+      if (queue.size() != 1) {
+        return false;
+      }
+    }
+    // Test Case 4: Check if the queue contains a specific element (contains)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      queue.enqueue(job1);
+
+      // Check if the queue contains job1 and does not contain job2
+      if (!(queue.contains(job1) && !queue.contains(job2))) {
+        return false;
+      }
+    }
+    // Test Case 5: Check if the queue does not contain an element not in the queue (contains)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      queue.enqueue(job1);
+
+      // Check if the queue does not contain job2
+      if (queue.contains(job2)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -67,7 +278,57 @@ public class PrintManagerTester {
    * @return true if elements are correctly removed from the queue, false otherwise
    */
   public static boolean testQueueRemove() {
-    return false; // default return statement
+    // Test Case 1: Check if the queue is empty after clearing (clear)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      queue.enqueue(job1);
+      queue.clear();
+      // Check if the queue is empty
+      if (!queue.isEmpty()) {
+        return false;
+      }
+    }
+    // Test Case 2: Check if the queue size is 0 after clearing (clear)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      queue.enqueue(job1);
+      queue.clear();
+      // Check if the size is 0
+      if (queue.size() != 0) {
+        return false;
+      }
+    }
+    // Test Case 3: Check if the queue is empty after dequeuing all elements (dequeue)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      queue.enqueue(job1);
+      queue.enqueue(job2);
+      queue.dequeue(); // dequeue job1
+      queue.dequeue(); // dequeue job2
+      // Check if the queue is empty
+      if (!queue.isEmpty()) {
+        return false;
+      }
+    }
+    // Test Case 4: Check if the queue size is 0 after dequeuing all elements (dequeue)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      queue.enqueue(job1);
+      queue.enqueue(job2);
+      queue.dequeue(); // dequeue job1
+      queue.dequeue(); // dequeue job2
+      // Check if the size is 0
+      if (queue.size() != 0) {
+        return false;
+      }
+    }
+    return true; 
   }
 
   /**
@@ -76,7 +337,30 @@ public class PrintManagerTester {
    * @return true if this tester verifies a correct functionality, false otherwise.
    */
   public static boolean testGetListQueue() {
-    return false; // default return statement
+    // Test Case 1: Get the list of elements in an empty queue
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob[] result = queue.getList();
+      // Check if the result is an empty array
+      if (result.length != 0) {
+        return false;
+      }
+    }
+    // Test Case 2: Get the list of elements in a non-empty queue
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      queue.enqueue(job1);
+      queue.enqueue(job2);
+      // Get the list of elements
+      PrintJob[] result = queue.getList();
+      // Check if the result contains job1 and job2 in the correct order
+      if (!(result.length == 2 && result[0].equals(job1) && result[1].equals(job2))) {
+        return false;
+      }
+    }
+    return true;
   }
 
 
