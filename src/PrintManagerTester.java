@@ -1,6 +1,6 @@
 // TODO Add Complete File Header
 
-
+import java.util.NoSuchElementException;
 /**
  * Tester class for testing the functionality of the PrintJobQueue, PrintJobStack, and PrintManager
  * classes.
@@ -373,7 +373,69 @@ public class PrintManagerTester {
    * @return true if this tester verifies a correct functionality, false otherwise.
    */
   public static boolean testSubmitJobGetJobCountContainsJobViewPendingJobs() {
-    return false; // default return statement
+    // Test Case 1: Submit one job to an empty queue (submitJob and getJobCount and containsJob)
+    {
+      PrintManager manager = new PrintManager();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      manager.submitJob(job1);
+      // Check if the job count is 1
+      if (manager.getJobCount() != 1) {
+        return false;
+      }
+      // Check if the queue contains job1
+      if (!manager.containsJob(job1)) {
+        return false;
+      }
+    }
+    // Test Case 2: Submit multiple jobs to the queue (submitJob and getJobCount and containsJob)
+    {
+      PrintManager manager = new PrintManager();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      manager.submitJob(job1);
+      manager.submitJob(job2);
+      // Check if the job count is 2
+      if (manager.getJobCount() != 2) {
+        return false;
+      }
+      // Check if the queue contains job1 and job2
+      if (!(manager.containsJob(job1) && manager.containsJob(job2))) {
+        return false;
+      }
+    }
+    // Test Case 3: Check if the queue does not contain a job not in the queue (containsJob)
+    {
+      PrintManager manager = new PrintManager();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      manager.submitJob(job1);
+      // Check if the queue does not contain job2
+      if (manager.containsJob(job2)) {
+        return false;
+      }
+    }
+    // Test Case 4: View pending jobs in the queue (viewPendingJobs)
+    {
+      PrintManager manager = new PrintManager();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      manager.submitJob(job1);
+      manager.submitJob(job2);
+      // Check if the viewPendingJobs returns the correct string representation
+      String expectedOutput = "Document1: 5 pages\nDocument2: 10 pages";
+      if (!manager.viewPendingJobs().equals(expectedOutput)) {
+        return false;
+      }
+    }
+    // Test Case 5: Check if the viewPendingJobs returns an empty string for an empty queue
+    {
+      PrintManager manager = new PrintManager();
+      // Check if the viewPendingJobs returns an empty string
+      if (!manager.viewPendingJobs().equals("")) {
+        return false;
+      }
+    }
+    return true; 
   }
 
 
@@ -383,8 +445,43 @@ public class PrintManagerTester {
    * @return true if the job is successfully printed and added to the history, false otherwise.
    */
   public static boolean testPrintNextJobViewCompletedJobs() {
-
-    return false; // default return statement
+    // Test Case 1: Print the next job from an empty queue (printNextJob and viewCompletedJobs)
+    {
+      PrintManager manager = new PrintManager();
+      try {
+        manager.printNextJob(); // should throw an exception
+        return false;
+      } catch (NoSuchElementException e) {
+        // Expected exception
+      }
+    }
+    // Test Case 2: Print the next job from a non-empty queue (printNextJob and viewCompletedJobs)
+    {
+      PrintManager manager = new PrintManager();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      manager.submitJob(job1);
+      manager.printNextJob(); // print job1
+      // Check if the completed jobs contain job1
+      String expectedOutput = "Document1: 5 pages";
+      if (!manager.viewCompletedJobs().equals(expectedOutput)) {
+        return false; 
+      }
+    }
+    // Test Case 3: Check if the queue is empty after printing all jobs (printNextJob)
+    {
+      PrintManager manager = new PrintManager();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      manager.submitJob(job1);
+      manager.submitJob(job2);
+      manager.printNextJob(); // print job1
+      manager.printNextJob(); // print job2
+      // Check if the queue is empty
+      if (manager.getJobCount() != 0) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -393,7 +490,29 @@ public class PrintManagerTester {
    * @return true if the last job is successfully moved back to the print queue, false otherwise.
    */
   public static boolean testReprintLastJob() {
-    return false; // default return statement
+    // Test Case 1: Reprint the last job from an empty history stack (reprintLastJob)
+    {
+      PrintManager manager = new PrintManager();
+      try {
+        manager.reprintLastJob(); // should throw an exception
+        return false;
+      } catch (NoSuchElementException e) {
+        // Expected exception
+      }
+    }
+    // Test Case 2: Reprint the last job from a non-empty history stack (reprintLastJob)
+    {
+      PrintManager manager = new PrintManager();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      manager.submitJob(job1);
+      manager.printNextJob(); // print job1
+      manager.reprintLastJob(); // reprint job1
+      // Check if the queue contains job1 again
+      if (!manager.containsJob(job1)) {
+        return false; 
+      }
+    }
+    return true;
   }
 
 
@@ -404,10 +523,28 @@ public class PrintManagerTester {
    */
   public static boolean testResetPrinting() {
     // Test Case 1: No pending print job (empty queue)
-
+    {
+      PrintManager manager = new PrintManager();
+      manager.resetPrinting(); // reset printing
+      // Check if the queue is empty
+      if (manager.getJobCount() != 0) {
+        return false; 
+      }
+    }
     // Test Case 2: clear a non-empty pending print job queue
-
-    return false; // default return statement
+    {
+      PrintManager manager = new PrintManager();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      manager.submitJob(job1);
+      manager.submitJob(job2);
+      manager.resetPrinting(); // reset printing
+      // Check if the queue is empty
+      if (manager.getJobCount() != 0) {
+        return false; 
+      }
+    }
+    return true;
   }
 
   /**
@@ -417,10 +554,29 @@ public class PrintManagerTester {
    */
   public static boolean testClearPrintHistory() {
     // Test Case 1: No print history (empty stack)
-
+    {
+      PrintManager manager = new PrintManager();
+      manager.clearPrintHistory(); // clear history
+      // Check if the history stack is empty
+      if (!manager.viewCompletedJobs().equals("")) {
+        return false; 
+      }
+    }
     // Test Case 2: clear a non-empty print history stack
-
-    return false; // default return statement
+    {
+      PrintManager manager = new PrintManager();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      manager.submitJob(job1);
+      manager.submitJob(job2);
+      manager.printNextJob(); // print job1
+      manager.clearPrintHistory(); // clear history
+      // Check if the history stack is empty
+      if (!manager.viewCompletedJobs().equals("")) {
+        return false; 
+      }
+    }
+    return true;
   }
 
 
