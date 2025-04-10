@@ -80,6 +80,27 @@ public class PrintManagerTester {
         return false; // Test passed
       }
     }
+    // Test Case 5: Checks if Peek is making changes to the stack
+    {
+      PrintJobStack stack = new PrintJobStack();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      stack.push(job1);
+      stack.push(job2);
+      PrintJobStack stack2 = stack; // Copy the stack reference
+      PrintJob j = stack.peek(); // Peek at the top element
+      if (stack != stack2) {
+        return false; // Test failed, stack reference changed
+      }
+      // Check if the top element is job2
+      if (!stack.peek().equals(job2)) {
+        return false; 
+      }
+      // Check if the size is still 2
+      if (stack.size() != 2) {
+        return false; 
+      }
+    }
     return true;
   }
 
@@ -236,10 +257,14 @@ public class PrintManagerTester {
     {
       PrintJobQueue queue = new PrintJobQueue();
       PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      PrintJob job3 = new PrintJob("Document3", 15);
       queue.enqueue(job1);
+      queue.enqueue(job2);
+      queue.enqueue(job3);
 
-      // Check if the size is 1
-      if (queue.size() != 1) {
+      // Check if the size is 3
+      if (queue.size() != 3) {
         return false;
       }
     }
@@ -249,9 +274,30 @@ public class PrintManagerTester {
       PrintJob job1 = new PrintJob("Document1", 5);
       PrintJob job2 = new PrintJob("Document2", 10);
       queue.enqueue(job1);
-
-      // Check if the queue contains job1 and does not contain job2
-      if (!(queue.contains(job1) && !queue.contains(job2))) {
+      if (!queue.contains(job1)) {
+        return false;
+      }
+      if (queue.contains(job2)) {
+        return false;
+      }
+    }
+    // Test case 4.1: check if the queue contains a specific element (contains)
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      PrintJob job3 = new PrintJob("Document3", 15);
+      queue.enqueue(job1);
+      queue.enqueue(job2);
+      queue.enqueue(job3);
+      // Check if the queue contains job1 and job2
+      if (!queue.contains(job1)) {
+        return false;
+      }
+      if (!queue.contains(job2)) {
+        return false;
+      }
+      if (!queue.contains(job3)) {
         return false;
       }
     }
@@ -267,6 +313,28 @@ public class PrintManagerTester {
         return false;
       }
     }
+    // Test Case 6: Checks if Peek is working correctly
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      PrintJob job1 = new PrintJob("Document1", 5);
+      PrintJob job2 = new PrintJob("Document2", 10);
+      queue.enqueue(job1);
+      queue.enqueue(job2);
+      // Check if the front element is job1
+      if (!queue.peek().equals(job1)) {
+        return false;
+      }
+    }
+    // Test Case 7: Check if Peek throws an exception when the queue is empty
+    {
+      PrintJobQueue queue = new PrintJobQueue();
+      try {
+        queue.peek(); // should throw an exception
+        return false;
+      } catch (NoSuchElementException e) {
+        // Expected exception
+      }
+    }
     return true;
   }
 
@@ -278,25 +346,21 @@ public class PrintManagerTester {
    * @return true if elements are correctly removed from the queue, false otherwise
    */
   public static boolean testQueueRemove() {
-    // Test Case 1: Check if the queue is empty after clearing (clear)
+
+    // Test Case 2: Check if the queue size is 0 after deleting element
     {
       PrintJobQueue queue = new PrintJobQueue();
       PrintJob job1 = new PrintJob("Document1", 5);
       queue.enqueue(job1);
-      queue.clear();
-      // Check if the queue is empty
+      queue.dequeue();
+      // Check if the size is 0
       if (!queue.isEmpty()) {
         return false;
       }
-    }
-    // Test Case 2: Check if the queue size is 0 after clearing (clear)
-    {
-      PrintJobQueue queue = new PrintJobQueue();
-      PrintJob job1 = new PrintJob("Document1", 5);
-      queue.enqueue(job1);
-      queue.clear();
-      // Check if the size is 0
       if (queue.size() != 0) {
+        return false;
+      }
+      if (queue.contains(job1)) {
         return false;
       }
     }
@@ -305,27 +369,39 @@ public class PrintManagerTester {
       PrintJobQueue queue = new PrintJobQueue();
       PrintJob job1 = new PrintJob("Document1", 5);
       PrintJob job2 = new PrintJob("Document2", 10);
+      PrintJob job3 = new PrintJob("Document3", 15);
       queue.enqueue(job1);
       queue.enqueue(job2);
-      queue.dequeue(); // dequeue job1
-      queue.dequeue(); // dequeue job2
-      // Check if the queue is empty
-      if (!queue.isEmpty()) {
+      queue.enqueue(job3);
+      queue.dequeue();
+      if (queue.dequeue() != job2) {
+        return false;
+      }
+      // Check if the size is 0
+      if (queue.isEmpty()) {
+        return false;
+      }
+      if (queue.size() != 1) {
+        return false;
+      }
+      if (!queue.contains(job3)) {
+        return false;
+      }
+      if (queue.contains(job1)) {
+        return false;
+      }
+      if (queue.contains(job2)) {
         return false;
       }
     }
-    // Test Case 4: Check if the queue size is 0 after dequeuing all elements (dequeue)
+    // Test Case 4: Check if the queue is empty after dequeuing from an empty queue (dequeue)
     {
       PrintJobQueue queue = new PrintJobQueue();
-      PrintJob job1 = new PrintJob("Document1", 5);
-      PrintJob job2 = new PrintJob("Document2", 10);
-      queue.enqueue(job1);
-      queue.enqueue(job2);
-      queue.dequeue(); // dequeue job1
-      queue.dequeue(); // dequeue job2
-      // Check if the size is 0
-      if (queue.size() != 0) {
+      try {
+        queue.dequeue(); // should throw an exception
         return false;
+      } catch (NoSuchElementException e) {
+        // Expected exception
       }
     }
     return true; 
